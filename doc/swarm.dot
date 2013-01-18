@@ -1,0 +1,77 @@
+digraph G {
+    size="16,16";
+    ranksep=0.5; 
+    nodesep=0.1;
+    //rankdir=LR;
+    //ratio=fill;
+    //compound=true; // edges connecting nodes and domains
+    concentrate=true; //edge merging to reduce clutter in dense layouts
+
+    // file service
+    FuseClient [label="FuseClient",color=lightgrey];
+    FileServer [label="FileServer"];
+    BlockServer [label="BlockServer"];
+    DeviceManager [label="DeviceManager"];
+    DevicePiper [label="DevicePiper"];
+    Blocks [label="blocks",color=lightgrey];
+
+    FuseClient -> FileServer [label="http web service"];
+    FileServer -> BlockServer [label="http"];
+    BlockServer -> DeviceManager [label="local"];
+    DeviceManager -> DevicePiper;
+    DevicePiper -> Blocks [label="disks"];
+
+    // monitor
+    operator [label="operator",color=lightgrey];
+    MonitorServer [label="MonitorServer"];
+    Monitor [label="Monitor"];
+
+    operator -> MonitorServer [label="http web service"];
+    MonitorServer -> Monitor;
+
+    // discovery
+    Gossiper [label="Gossiper"];
+    GossipServer [label="GossipServer"];
+    NodeConfigs [label="NodeConfigs",shape="record"];
+    LocalDevices [label="LocalDevices",shape="record"];
+
+    NodeConfigs -> Gossiper  [label="local",dir=both];
+    LocalDevices -> Gossiper  [label="local",dir=both];
+    Gossiper -> GossipServer [label="remote node configs\nremote devices"];
+
+    // metacache
+    MetaCacheSyncer [label="MetaCacheSyncer"];
+    MetaCache [label="MetaCache",shape="record"];
+    LocalDevices1 [label="LocalDevices",shape="record"];
+    LocalDisks [label="LocalDisks",color=lightgrey];
+
+    MetaCache -> MetaCacheSyncer [label="sync",dir=both];
+    MetaCacheSyncer -> LocalDevices1;
+    LocalDevices1 -> LocalDisks [label="tranverse"];
+
+    // rebalance
+    MetaCache1 [label="MetaCache",shape="record"];
+    RebalancePusher [label="RebalancePusher"];
+    RebalanceServer [label="RebalanceServer"];
+
+    MetaCache1 -> RebalancePusher;
+    RebalancePusher -> RebalanceServer;
+
+    // rebalance gc
+    RebalanceGC [label="RebalanceGC"];
+    MetaCache2 [label="MetaCache",shape="record"];
+    BlockServer1 [label="BlockServer"];
+
+    MetaCache2 -> RebalanceGC [label="redundant blocks",dir=both];
+    RebalanceGC -> BlockServer1 [label="query block"];
+
+    // block gc
+    BlockGC [label="BlockGC"];
+    MetaCache3 [label="MetaCache",shape="record"];
+
+    MetaCache3 -> BlockGC [label="check all blocks",dir=both];
+
+    // align
+    {rank=same; FileServer; Gossiper; MetaCacheSyncer; RebalancePusher; RebalanceGC}
+    
+}
