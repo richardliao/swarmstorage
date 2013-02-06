@@ -2,7 +2,7 @@ Source Code
 ===========
 
 modules
------------
+-------
 
 Main code of swarm.
 
@@ -14,13 +14,13 @@ Third party go packages used by swarmstorage.
 
 
 cmd
------------
+---
 
 Command line utilities of swarmstorage.
 
 
 gopath
------------
+------
 
 Symlink for convenience.
 

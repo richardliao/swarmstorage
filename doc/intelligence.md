@@ -4,7 +4,7 @@ Intelligence
 Swarmstorage node includes full knowledge and abilities to:
 
   - serve client requests
-  - serve maintainance requests
+  - serve maintenance requests
   - contact neighbours
   - gather information
   - make decision
@@ -15,5 +15,6 @@ But distributed system environment is very complex and unpredictable, nodes need
 
   - remembering
   - control feedback loop
+  - self monitoring
 
 

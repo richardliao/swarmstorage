@@ -1,12 +1,12 @@
 API
-============
+===
 
 All APIs are HTTP RESTful. The are two type of APIs swarmstorage provided:
   - access object
-  - maintainance
+  - maintenance
 
 Access object
-============
+=============
 
 Client can use swarmstorage by accessing OSS APIs of any nodes in the domain. 
 
@@ -54,10 +54,10 @@ Client can use swarmstorage by accessing OSS APIs of any nodes in the domain.
 * Return
   - JSON encode ObjectStatusResponse
 
-Maintainance
-============
+Maintenance
+===========
 
-Maintainance APIs is used to execute maintainance tasks.
+Maintenance APIs is used to execute maintenance tasks.
 
 Monitor
 -------

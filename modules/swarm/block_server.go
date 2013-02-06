@@ -685,8 +685,8 @@ func writeBlockLocalDevice(blockInfo BlockInfo, pdata *[]byte) (err error) {
 }
 
 // Get handoff device.
-// If choose device by ring, handoff device will focus on a specific one, which 
-// may conduce double load to that device.
+// If choose device by ring, handoff device will focus on a particular one, 
+// which may conduce double load to that device.
 // We choose a random online device here.
 func choiceHandoffDevice(blockInfo BlockInfo, priority int, tried *StringSet) (deviceId string, err error) {
 	all := make([]string, 0)
